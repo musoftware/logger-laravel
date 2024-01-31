@@ -131,11 +131,15 @@ class TestCommand extends Command
 
         $hub = new Hub($clientBuilder->getClient());
 
+      
+
         $this->info('Sending test event...');
 
         $exception = $this->generateTestException($this->name, ['foo' => 'bar']);
 
         $eventId = $hub->captureException($exception);
+
+
 
         if (!$eventId) {
             $this->error('There was an error sending the event.');
@@ -167,6 +171,8 @@ class TestCommand extends Command
 
             $span->finish();
             $transactionId = $transaction->finish();
+
+
 
             if (!$transactionId) {
                 $this->error('There was an error sending the transaction.');
@@ -215,6 +221,8 @@ class TestCommand extends Command
     private function printDebugTips(): void
     {
         $probablySSLError = false;
+
+
 
         foreach ($this->errorMessages as $logMessage) {
             if (Str::contains($logMessage, ['SSL certificate problem', 'certificate has expired'])) {
